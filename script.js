@@ -2,11 +2,14 @@ const createColumnsButton = document.querySelector('.createColumnsButton');
 const createColumns = document.querySelector('.createColumns');
 let column = document.querySelectorAll(".column");
 bubbleSortButton = document.querySelector(".bubbleSortButton");
-numberOfColumns = 75;
+columnMaxHeight = 500;
+columnMinHeight = 100;
+columnFixedWidth = 10;
+numberOfColumns = 50;
 fastSpeed = .01;
 mediumSpeed = 50;
 slowSpeed = 100;
-sortingSpeed = fastSpeed;
+sortingSpeed = mediumSpeed;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -20,7 +23,7 @@ function makeColumn (num) {
           column.classList.add('column');
           column.style.background = 'brown';
           // Here's how we style the DOM elements
-          column.style.height = '' + getRandomInt(100, 500) + 'px';
+          column.style.height = getRandomInt(columnMinHeight, columnMaxHeight) + 'px';
           createColumns.appendChild(column);
   }
 }
