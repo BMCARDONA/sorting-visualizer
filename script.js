@@ -1,22 +1,31 @@
+const createColumnsButton = document.querySelector('.createColumnsButton');
+const createColumns = document.querySelector('.createColumns');
 
-const container = document.querySelector('#columns');
-function makeCell (num) {
-    for (let i = 0; i < num; i++) {
-        for (let j = 0; j < num; j++) {
-            let cell = document.createElement('div');
-            cell.classList.add('cell');
-            container.appendChild(cell);
-        }
-    }
+function makeColumn (num) {
+  for (let i = 0; i < num; i++) {
+          let column = document.createElement('div');
+          column.classList.add('column');
+          createColumns.appendChild(column);
+  }
 }
 
-price.addEventListener('input', function() {
-  output.textContent = price.value;
-  // This code is just adding extra cells -- that's not what we want
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-  number = price.value 
-  makeCell(number);
-  makeGrid(number, number);
-});
+function makeGrid(numCols) {
+  createColumns.style.setProperty('--numCols', numCols); 
+}
+
+createColumnsButton.addEventListener('click', () => {
+  makeColumn(70);
+  makeGrid(70);
+})
+
+
+// price.addEventListener('input', function() {
+//   output.textContent = price.value;
+//   // This code is just adding extra cells -- that's not what we want
+//   while (container.firstChild) {
+//     container.removeChild(container.firstChild);
+//   }
+//   number = price.value 
+//   makeCell(number);
+//   makeGrid(number, number);
+// });
