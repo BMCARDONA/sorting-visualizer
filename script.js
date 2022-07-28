@@ -1,11 +1,22 @@
 const createColumnsButton = document.querySelector('.createColumnsButton');
 const createColumns = document.querySelector('.createColumns');
 
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 function makeColumn (num) {
   for (let i = 0; i < num; i++) {
           let column = document.createElement('div');
           column.classList.add('column');
+          column.style.background = 'brown';
+          // Here's how we style the DOM elements
+          column.style.height = '' + getRandomInt(100, 500) + 'px';
           createColumns.appendChild(column);
+          const styling = document.querySelector('.text');
   }
 }
 
