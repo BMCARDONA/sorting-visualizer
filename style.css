@@ -1,0 +1,26 @@
+
+
+.createColumns {
+    display: grid;
+    
+    justify-content: center;
+    margin: auto;
+    /* repeat(number of columns, the column width we want) */
+    /* See: https://css-tricks.com/introduction-fr-css-unit/ */
+    /* Also see: https://www.youtube.com/watch?v=N731aTpo8TI&ab_channel=RachelAndrew */
+    grid-template-columns: repeat(var(--numCols), 1fr);
+    /* repeat(number of rows, the column width we want) */
+    /* grid-template-rows: repeat(var(--numRows), 1fr); */
+    width: 550px;
+    height: 550px;
+    border: black solid 4px;
+  }
+
+
+/* In the DOM */
+  .column {
+    display:flex;
+    padding: 1px;
+    border: 0.01px solid rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+  }
