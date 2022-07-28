@@ -11,8 +11,8 @@
     grid-template-columns: repeat(var(--numCols), 1fr);
     /* repeat(number of rows, the column width we want) */
     /* grid-template-rows: repeat(var(--numRows), 1fr); */
-    width: 550px;
-    height: 550px;
+    width: 1200px;
+    height: 700px;
     border: black solid 4px;
   }
 
