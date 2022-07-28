@@ -9,7 +9,7 @@ numberOfColumns = 50;
 fastSpeed = .01;
 mediumSpeed = 50;
 slowSpeed = 100;
-sortingSpeed = mediumSpeed;
+sortingSpeed = fastSpeed;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
