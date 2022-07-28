@@ -1,5 +1,7 @@
 const createColumnsButton = document.querySelector('.createColumnsButton');
 const createColumns = document.querySelector('.createColumns');
+let column = document.querySelectorAll(".column");
+bubbleSortButton = document.querySelector(".bubbleSortButton");
 
 
 function getRandomInt(min, max) {
@@ -29,6 +31,25 @@ createColumnsButton.addEventListener('click', () => {
   makeGrid(70);
 })
 
+// need to create bubble sort button
+function bubbleSort(num) {
+  for (let i = 0; i < num - 1; i++) {
+    // Here, we call the 'column' selector
+    var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+    if (nodes[i].style.height > nodes[i + 1].style.height) {
+      // nodes[i].style.height, nodes[i + 1].style.height = nodes[i + 1].style.height, nodes[i].style.height;
+      nodes[i].style.background = 'green';
+      console.log(nodes[i].style.height);
+      a = "" + nodes[i].style.height
+      nodes[i].style.height = "" + nodes[i + 1].style.height
+      nodes[i + 1].style.height = a
+    }
+  }
+}
+
+bubbleSortButton.addEventListener('click', () => {
+  bubbleSort(70);
+})
 
 // price.addEventListener('input', function() {
 //   output.textContent = price.value;
