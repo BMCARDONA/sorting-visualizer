@@ -1,18 +1,41 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  border-width: 0px;
+  background: #0d3629;
+}
 
+.sorting-visualizer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;;
+
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(38, 38, 38);
+  padding: 10px;
+  gap: 10px;
+}
 
 .createColumns {
     display: grid;
-    
     justify-content: center;
+    /* align-items: flex-end; */
     margin: auto;
+    margin-top: 20px;
     /* repeat(number of columns, the column width we want) */
     /* See: https://css-tricks.com/introduction-fr-css-unit/ */
     /* Also see: https://www.youtube.com/watch?v=N731aTpo8TI&ab_channel=RachelAndrew */
     grid-template-columns: repeat(var(--numCols), 1fr);
     /* repeat(number of rows, the column width we want) */
     /* grid-template-rows: repeat(var(--numRows), 1fr); */
-    width: 1200px;
-    height: 700px;
+    width: 160vh;
+    height: 80vh;
     border: black solid 4px;
   }
 
