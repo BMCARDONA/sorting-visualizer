@@ -25,7 +25,7 @@ body {
 .createColumns {
     display: grid;
     justify-content: center;
-    /* align-items: flex-end; */
+    align-items: flex-end;
     margin: auto;
     margin-top: 20px;
     /* repeat(number of columns, the column width we want) */
