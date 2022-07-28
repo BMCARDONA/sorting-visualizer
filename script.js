@@ -9,13 +9,15 @@ numberOfColumns = 50;
 fastSpeed = .01;
 mediumSpeed = 50;
 slowSpeed = 100;
-sortingSpeed = mediumSpeed;
+sortingSpeed = fastSpeed;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+let firstTime = true;
 
 function makeColumn (num) {
   for (let i = 0; i < num; i++) {
@@ -33,8 +35,21 @@ function makeGrid(numCols) {
 }
 
 createColumnsButton.addEventListener('click', () => {
-  makeColumn(numberOfColumns);
-  makeGrid(numberOfColumns);
+  if (firstTime) {
+    makeColumn(numberOfColumns);
+    makeGrid(numberOfColumns);
+    firstTime = false;
+  }
+  else {
+    for (let i = 0; i < numberOfColumns; i++) {
+      // Helpful link: https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+      while (createColumns.firstChild) {
+        createColumns.removeChild(createColumns.lastChild);
+      }
+    }   
+    makeColumn(numberOfColumns);
+    makeGrid(numberOfColumns);
+  }
 })
 
 // Helpful link: https://stackoverflow.com/questions/65794498/how-to-repeat-promise-chain
