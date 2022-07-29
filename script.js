@@ -4,12 +4,13 @@ let column = document.querySelectorAll(".column");
 bubbleSortButton = document.querySelector(".bubbleSortButton");
 insertionSortButton = document.querySelector(".insertionSortButton");
 selectionSortButton = document.querySelector(".selectionSortButton");
-columnColor = 'grey'
+quickSortButton = document.querySelector(".quickSortButton");
+columnColor = 'purple'
 sortedColor = 'green'
 columnMaxHeight = 500;
 columnMinHeight = 100;
 columnFixedWidth = 10;
-numberOfColumns = 25;
+numberOfColumns = 200;
 fastSpeed = .01;
 mediumSpeed = 50;
 slowSpeed = 100;
@@ -108,8 +109,8 @@ bubbleSortButton.addEventListener('click', () => {
 
 async function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
-    await delay(sortingSpeed)
     while (i > 0 && array[i].style.height < array[i - 1].style.height) {
+      await delay(sortingSpeed)
       a = "" + array[i].style.height
       array[i].style.height = "" + array[i - 1].style.height
       array[i - 1].style.height = a
@@ -137,8 +138,8 @@ async function selectionSort(array) {
   while (startIdx < array.length - 1) {
     let smallestIdx = startIdx;
     for (let i = startIdx + 1; i < array.length; i++) {
-      await delay(sortingSpeed)
       if (array[smallestIdx].style.height > array[i].style.height) {
+        await delay(sortingSpeed)
         smallestIdx = i;
       }
     }
@@ -160,3 +161,57 @@ async function repeatChain(times, chain) {
 }
 repeatChain(1, selectionSort)
 })
+
+
+// Quick sort
+async function quickSortHelper(array, startIdx, endIdx) {
+  if (startIdx >= endIdx) return;
+  const pivotIdx = startIdx;
+  let leftIdx = startIdx + 1;
+  let rightIdx = endIdx;
+  while (rightIdx >= leftIdx) {
+    await delay(sortingSpeed)
+    if (array[leftIdx].style.height > array[pivotIdx].style.height && array[rightIdx].style.height < array[pivotIdx].style.height) {
+      swap(leftIdx, rightIdx, array)
+    }
+    if (array[leftIdx].style.height <= array[pivotIdx].style.height) {
+      leftIdx++;
+  } 
+    if (array[rightIdx].style.height >= array[pivotIdx].style.height) {
+      rightIdx--;
+  } 
+  }
+  swap(pivotIdx, rightIdx, array);
+  const leftSubarrayIsSmaller = rightIdx - 1 - startIdx < endIdx - (rightIdx + 1);
+  if (leftSubarrayIsSmaller) {
+    quickSortHelper(array, startIdx, rightIdx - 1);
+    quickSortHelper(array, rightIdx + 1, endIdx);
+  }
+  else {
+    quickSortHelper(array, rightIdx + 1, endIdx);
+    quickSortHelper(array, startIdx, rightIdx - 1);
+  }
+}
+
+function swap(i, j, array) {
+  let temp = array[j].style.height;
+  array[j].style.height = array[i].style.height;
+  array[i].style.height = temp;
+}
+
+
+function quickSort(array) {
+  quickSortHelper(array, 0, array.length - 1);
+  return array;
+}
+
+
+quickSortButton.addEventListener('click', () => {
+  var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+  async function repeatChain(times, chain) {
+    for (let i = 0; i < times; i++) {
+      await chain(nodes);
+    }
+  }
+  repeatChain(1, quickSort)
+  })
