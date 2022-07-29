@@ -2,12 +2,13 @@ const createColumnsButton = document.querySelector('.createColumnsButton');
 const createColumns = document.querySelector('.createColumns');
 let column = document.querySelectorAll(".column");
 bubbleSortButton = document.querySelector(".bubbleSortButton");
+insertionSortButton = document.querySelector(".insertionSortButton");
 columnColor = 'grey'
 sortedColor = 'green'
 columnMaxHeight = 500;
 columnMinHeight = 100;
 columnFixedWidth = 10;
-numberOfColumns = 50;
+numberOfColumns = 100;
 fastSpeed = .01;
 mediumSpeed = 50;
 slowSpeed = 100;
@@ -100,4 +101,31 @@ bubbleSortButton.addEventListener('click', () => {
     }
   }
   repeatChain(1, bubbleSort)
+})
+
+// Insertion sort
+
+async function insertionSort(array) {
+  for (let i = 1; i < array.length; i++) {
+    await delay(sortingSpeed)
+    while (i > 0 && array[i].style.height < array[i - 1].style.height) {
+      a = "" + array[i].style.height
+      array[i].style.height = "" + array[i - 1].style.height
+      array[i - 1].style.height = a
+      isSorted = false;
+      i -= 1;
+    } 
+  }
+  return array;
+}
+
+insertionSortButton.addEventListener('click', () => {
+    var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+    async function repeatChain(times, chain) {
+      for (let i = 0; i < times; i++) {
+        await chain(nodes);
+        console.log(nodes);
+      }
+    }
+    repeatChain(1, insertionSort)
 })
