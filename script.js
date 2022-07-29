@@ -2,6 +2,8 @@ const createColumnsButton = document.querySelector('.createColumnsButton');
 const createColumns = document.querySelector('.createColumns');
 let column = document.querySelectorAll(".column");
 bubbleSortButton = document.querySelector(".bubbleSortButton");
+columnColor = 'grey'
+sortedColor = 'green'
 columnMaxHeight = 500;
 columnMinHeight = 100;
 columnFixedWidth = 10;
@@ -23,7 +25,7 @@ function makeColumn (num) {
   for (let i = 0; i < num; i++) {
           let column = document.createElement('div');
           column.classList.add('column');
-          column.style.background = 'brown';
+          column.style.background = columnColor;
           // Here's how we style the DOM elements
           column.style.height = getRandomInt(columnMinHeight, columnMaxHeight) + 'px';
           createColumns.appendChild(column);
@@ -52,6 +54,9 @@ createColumnsButton.addEventListener('click', () => {
   }
 })
 
+
+// BUBBLE SORT
+
 // Helpful link: https://stackoverflow.com/questions/65794498/how-to-repeat-promise-chain
 
 const delay = (time) => new Promise((resolve) => {
@@ -73,6 +78,15 @@ async function bubbleSort(array) {
         }
       }
       counter++;
+    }
+    // Change color once sorting is complete
+    for (let i = 0; i < array.length; i++) {
+      await delay(mediumSpeed)
+      // Since animation is temporary, it's call should be 
+      // the same as that of sortedColor!
+      array[i].style.animation = "doneSorting 1s";
+      array[i].style.background = sortedColor;
+      // Helpful link;\: https://www.w3schools.com/jsref/prop_style_animation.asp
     }
     return array;
 }
