@@ -3,12 +3,13 @@ const createColumns = document.querySelector('.createColumns');
 let column = document.querySelectorAll(".column");
 bubbleSortButton = document.querySelector(".bubbleSortButton");
 insertionSortButton = document.querySelector(".insertionSortButton");
+selectionSortButton = document.querySelector(".selectionSortButton");
 columnColor = 'grey'
 sortedColor = 'green'
 columnMaxHeight = 500;
 columnMinHeight = 100;
 columnFixedWidth = 10;
-numberOfColumns = 100;
+numberOfColumns = 25;
 fastSpeed = .01;
 mediumSpeed = 50;
 slowSpeed = 100;
@@ -128,4 +129,34 @@ insertionSortButton.addEventListener('click', () => {
       }
     }
     repeatChain(1, insertionSort)
+})
+
+// Selection sort
+async function selectionSort(array) {
+  let startIdx = 0;
+  while (startIdx < array.length - 1) {
+    let smallestIdx = startIdx;
+    for (let i = startIdx + 1; i < array.length; i++) {
+      await delay(sortingSpeed)
+      if (array[smallestIdx].style.height > array[i].style.height) {
+        smallestIdx = i;
+      }
+    }
+    const temp = array[smallestIdx].style.height;
+    array[smallestIdx].style.height = array[startIdx].style.height;
+    array[startIdx].style.height = temp;
+    startIdx++
+  }
+  return array; 
+}
+
+
+selectionSortButton.addEventListener('click', () => {
+var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+async function repeatChain(times, chain) {
+  for (let i = 0; i < times; i++) {
+    await chain(nodes);
+  }
+}
+repeatChain(1, selectionSort)
 })
