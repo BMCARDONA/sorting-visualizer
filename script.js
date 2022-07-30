@@ -6,15 +6,17 @@ insertionSortButton = document.querySelector(".insertionSortButton");
 selectionSortButton = document.querySelector(".selectionSortButton");
 quickSortButton = document.querySelector(".quickSortButton");
 heapSortButton = document.querySelector(".heapSortButton");
-columnColor = 'orange'
-sortedColor = 'green'
-columnMaxHeight = 500;
+mergeSortButton = document.querySelector(".mergeSortButton");
+columnColor = '#F6465B';
+// make sure @ keyframes doneSorting color is the same as sortedColor
+sortedColor = 'green';
+sortingColor = 'purple';
+columnMaxHeight = 600;
 columnMinHeight = 100;
-columnFixedWidth = 10;
-numberOfColumns = 75;
-fastSpeed = .01;
-mediumSpeed = 50;
-slowSpeed = 100;
+numberOfColumns = 200;
+fastSpeed = 1;
+mediumSpeed = 10;
+slowSpeed = 40;
 sortingSpeed = fastSpeed;
 
 function getRandomInt(min, max) {
@@ -27,12 +29,12 @@ let firstTime = true;
 
 function makeColumn (num) {
   for (let i = 0; i < num; i++) {
-          let column = document.createElement('div');
-          column.classList.add('column');
-          column.style.background = columnColor;
-          // Here's how we style the DOM elements
-          column.style.height = getRandomInt(columnMinHeight, columnMaxHeight) + 'px';
-          createColumns.appendChild(column);
+      let column = document.createElement('div');
+      column.classList.add('column');
+      column.style.background = columnColor;
+      // Here's how we style the DOM elements
+      column.style.height = '' + getRandomInt(columnMinHeight, columnMaxHeight) + 'px';
+      createColumns.appendChild(column);
   }
 }
 
@@ -58,14 +60,29 @@ createColumnsButton.addEventListener('click', () => {
   }
 })
 
+const delay = (time) => new Promise((resolve) => {
+  setTimeout(resolve, time)
+})
+
+// sortedColorAnimation
+async function sortedColorAnimation(array) {
+  for (let i = 0; i < array.length; i++) {
+    await delay(1);
+    array[i].style.animation = "doneSorting 1s";
+    array[i].style.background = sortedColor;
+  }
+}
+
+// sortingColorFunction
+function sortingColorFunction(array) {
+  for (let i = 0; i < array.length; i++) {
+    array[i].style.background = sortingColor;
+  }
+}
 
 // BUBBLE SORT
 
 // Helpful link: https://stackoverflow.com/questions/65794498/how-to-repeat-promise-chain
-
-const delay = (time) => new Promise((resolve) => {
-  setTimeout(resolve, time)
-})
 
 async function bubbleSort(array) {
     let isSorted = false;
@@ -73,6 +90,7 @@ async function bubbleSort(array) {
     while (!isSorted) {
       isSorted = true;
       for (let i = 0; i < array.length - 1 - counter; i++) {
+        console.log(array[i].style.height);
         await delay(sortingSpeed)
         if (array[i].style.height > array[i + 1].style.height) {
           a = "" + array[i].style.height
@@ -83,15 +101,7 @@ async function bubbleSort(array) {
       }
       counter++;
     }
-    // Change color once sorting is complete
-    for (let i = 0; i < array.length; i++) {
-      await delay(mediumSpeed)
-      // Since animation is temporary, it's call should be 
-      // the same as that of sortedColor!
-      array[i].style.animation = "doneSorting 1s";
-      array[i].style.background = sortedColor;
-      // Helpful link;\: https://www.w3schools.com/jsref/prop_style_animation.asp
-    }
+    sortedColorAnimation(array);
     return array;
 }
 
@@ -99,6 +109,7 @@ bubbleSortButton.addEventListener('click', () => {
   var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
   async function repeatChain(times, chain) {
     for (let i = 0; i < times; i++) {
+      sortingColorFunction(nodes);
       await chain(nodes);
       console.log(nodes);
     }
@@ -111,7 +122,7 @@ bubbleSortButton.addEventListener('click', () => {
 async function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
     while (i > 0 && array[i].style.height < array[i - 1].style.height) {
-      await delay(sortingSpeed)
+      await delay(sortingSpeed);
       a = "" + array[i].style.height
       array[i].style.height = "" + array[i - 1].style.height
       array[i - 1].style.height = a
@@ -119,6 +130,7 @@ async function insertionSort(array) {
       i -= 1;
     } 
   }
+  sortedColorAnimation(array);
   return array;
 }
 
@@ -126,6 +138,7 @@ insertionSortButton.addEventListener('click', () => {
     var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
     async function repeatChain(times, chain) {
       for (let i = 0; i < times; i++) {
+        sortingColorFunction(nodes);
         await chain(nodes);
         console.log(nodes);
       }
@@ -149,6 +162,7 @@ async function selectionSort(array) {
     array[startIdx].style.height = temp;
     startIdx++
   }
+  sortedColorAnimation(array);
   return array; 
 }
 
@@ -157,6 +171,7 @@ selectionSortButton.addEventListener('click', () => {
 var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
 async function repeatChain(times, chain) {
   for (let i = 0; i < times; i++) {
+    sortingColorFunction(nodes);
     await chain(nodes);
   }
 }
@@ -201,7 +216,7 @@ function swap(i, j, array) {
 }
 
 
-function quickSort(array) {
+async function quickSort(array) {
   quickSortHelper(array, 0, array.length - 1);
   return array;
 }
@@ -211,65 +226,80 @@ quickSortButton.addEventListener('click', () => {
   var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
   async function repeatChain(times, chain) {
     for (let i = 0; i < times; i++) {
+      sortingColorFunction(nodes);
       await chain(nodes);
+    }
+    if (sortingSpeed == fastSpeed) {
+      await delay (nodes.length * 20);
+      sortedColorAnimation(nodes);
+    }
+    if (sortingSpeed == mediumSpeed) {
+      await delay (nodes.length * 55);
+      sortedColorAnimation(nodes);
+    }
+    if (sortingSpeed == slowSpeed) {
+      await delay (nodes.length * 110)
+      sortedColorAnimation(nodes);
     }
   }
   repeatChain(1, quickSort)
-  })
+})
 
 
 
   // Heap sort
-  function buildMaxHeap(array) {
-    const firstParentIdx = Math.floor((array.length - 2) / 2);
-    for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
-      siftDown(currentIdx, array.length - 1, array);
+
+function buildMaxHeap(array) {
+  const firstParentIdx = Math.floor((array.length - 2) / 2);
+  for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
+    siftDown(currentIdx, array.length - 1, array);
+  }
+}
+
+function siftDown(currentIdx, endIdx, heap) {
+  let childOneIdx = currentIdx * 2 + 1;
+  while (childOneIdx <= endIdx) {
+    const childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
+    let idxToSwap;
+    if (childTwoIdx !== -1 && heap[childTwoIdx].style.height > heap[childOneIdx].style.height) {
+      idxToSwap = childTwoIdx;
+    } else {
+      idxToSwap = childOneIdx;
+    }
+    if (heap[idxToSwap].style.height > heap[currentIdx].style.height) {
+      swap(currentIdx, idxToSwap, heap);
+      currentIdx = idxToSwap;
+      childOneIdx = currentIdx * 2 + 1;
+    } else {
+      return;
     }
   }
-  
-  function siftDown(currentIdx, endIdx, heap) {
-    let childOneIdx = currentIdx * 2 + 1;
-    while (childOneIdx <= endIdx) {
-      const childTwoIdx = currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
-      let idxToSwap;
-      if (childTwoIdx !== -1 && heap[childTwoIdx].style.height > heap[childOneIdx].style.height) {
-        idxToSwap = childTwoIdx;
-      } else {
-        idxToSwap = childOneIdx;
-      }
-      if (heap[idxToSwap].style.height > heap[currentIdx].style.height) {
-        swap(currentIdx, idxToSwap, heap);
-        currentIdx = idxToSwap;
-        childOneIdx = currentIdx * 2 + 1;
-      } else {
-        return;
-      }
+}
+
+function swap(i, j, array) {
+  const temp = array[j].style.height;
+  array[j].style.height = array[i].style.height;
+  array[i].style.height = temp;
+}
+
+async function heapSort(array) {
+  buildMaxHeap(array);
+  for (let endIdx = array.length - 1; endIdx > 0; endIdx--) {
+    await delay(slowSpeed);
+    swap(0, endIdx, array);
+    siftDown(0, endIdx - 1, array);
+  }
+  sortedColorAnimation(array);
+  return array;
+}
+
+heapSortButton.addEventListener('click', () => {
+  var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+  async function repeatChain(times, chain) {
+    for (let i = 0; i < times; i++) {
+      sortingColorFunction(nodes);
+      await chain(nodes);
     }
   }
-  
-  function swap(i, j, array) {
-    const temp = array[j].style.height;
-    array[j].style.height = array[i].style.height;
-    array[i].style.height = temp;
-  }
-  
-  
-  async function heapSort(array) {
-    buildMaxHeap(array);
-    for (let endIdx = array.length - 1; endIdx > 0; endIdx--) {
-      await delay(sortingSpeed)
-      swap(0, endIdx, array);
-      siftDown(0, endIdx - 1, array);
-    }
-    return array;
-  }
-  
-  heapSortButton.addEventListener('click', () => {
-    var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-    async function repeatChain(times, chain) {
-      for (let i = 0; i < times; i++) {
-        await chain(nodes);
-      }
-    }
-    repeatChain(1, heapSort)
-    })
+  repeatChain(1, heapSort)
+  })
