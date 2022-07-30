@@ -9,6 +9,9 @@ heapSortButton = document.querySelector(".heapSortButton");
 mergeSortButton = document.querySelector(".mergeSortButton");
 let columnsSlider = document.querySelector('#columnsSlider');
 let output = document.querySelector('.number-of-columns-slider');
+slowButton = document.querySelector(".slowButton");
+mediumButton = document.querySelector(".mediumButton");
+fastButton = document.querySelector(".fastButton");
 columnColor = '#b22222';
 sortingColor = '#bd8600';
 // make sure @ keyframes doneSorting color is the same as sortedColor
@@ -17,8 +20,46 @@ columnMaxHeight = 550;
 columnMinHeight = 100;
 fastSpeed = 1;
 mediumSpeed = 10;
-slowSpeed = 40;
+slowSpeed = 100;
 sortingSpeed = fastSpeed;
+speedSelectionColor = 'orange'
+
+mimicButtonBackgroundColor = '#979797'
+
+function turnSpeedColorsOff(speed) {
+    if (speed == slowSpeed) {
+      slowButton.style.background = speedSelectionColor;
+      mediumButton.style.background = mimicButtonBackgroundColor;
+      fastButton.style.background = mimicButtonBackgroundColor;
+    }
+    else if (speed == mediumSpeed) {
+      mediumButton.style.background = speedSelectionColor;
+      slowButton.style.background = mimicButtonBackgroundColor;
+      fastButton.style.background = mimicButtonBackgroundColor;
+    }
+    else {
+      fastButton.style.background = speedSelectionColor;
+      slowButton.style.background = mimicButtonBackgroundColor;
+      mediumButton.style.background = mimicButtonBackgroundColor;
+    }
+}
+
+slowButton.addEventListener('click', () => {
+  sortingSpeed = slowSpeed;
+  turnSpeedColorsOff(sortingSpeed);
+})
+
+mediumButton.addEventListener('click', () => {
+  sortingSpeed = mediumSpeed;
+  turnSpeedColorsOff(sortingSpeed);
+})
+
+fastButton.addEventListener('click', () => {
+  sortingSpeed = fastSpeed;
+  turnSpeedColorsOff(sortingSpeed);
+})
+
+
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -260,7 +301,7 @@ quickSortButton.addEventListener('click', () => {
       sortedColorAnimation(nodes);
     }
     if (sortingSpeed == slowSpeed) {
-      await delay (nodes.length * 110)
+      await delay (nodes.length * 400)
       sortedColorAnimation(nodes);
     }
   }
