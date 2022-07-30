@@ -2,24 +2,54 @@ body {
   padding: 0px;
   margin: 0px;
   border-width: 0px;
-  background: #0d3629;
+  /* background: rgb(230, 230, 230); */
+  background: rgb(56, 72, 92);
 }
+
 
 .sorting-visualizer {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;;
-
+  font-size: 30px;
+  padding: 10px;
 }
 
 .buttons {
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: rgb(38, 38, 38);
-  padding: 10px;
-  gap: 10px;
+  background-color: rgb(96, 96, 96);
+  padding: 20px;
+  gap: 20px;
+}
+
+.createColumnsButton,
+.quickSortButton,
+.selectionSortButton,
+.insertionSortButton,
+.heapSortButton,
+.bubbleSortButton {
+  cursor: pointer;
+  font-size: 20px;
+  background:#979797;
+  border: 0px;
+  border-radius: 5px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.createColumnsButton:hover,
+.quickSortButton:hover,
+.selectionSortButton:hover,
+.insertionSortButton:hover,
+.heapSortButton:hover,
+.bubbleSortButton:hover {
+  filter: brightness(35%) !important;
+  -webkit-transition: all .3s ease;
 }
 
 .createColumns {
@@ -34,9 +64,10 @@ body {
     grid-template-columns: repeat(var(--numCols), 1fr);
     /* repeat(number of rows, the column width we want) */
     /* grid-template-rows: repeat(var(--numRows), 1fr); */
-    width: 160vh;
+    width: 150vh;
     height: 80vh;
-    border: black solid 4px;
+    gap: 2px;
+    border-bottom: rgb(117, 117, 117) solid 4px;
   }
 
 
@@ -50,10 +81,7 @@ body {
 
   @keyframes doneSorting {
     50% {
-      transform: scale(1.2);
-    }
-
-    100% {
+      transform: scale(1.1);
       background-color: green;
     }
   }
