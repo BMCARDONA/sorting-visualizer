@@ -7,13 +7,14 @@ selectionSortButton = document.querySelector(".selectionSortButton");
 quickSortButton = document.querySelector(".quickSortButton");
 heapSortButton = document.querySelector(".heapSortButton");
 mergeSortButton = document.querySelector(".mergeSortButton");
+let columnsSlider = document.querySelector('#columnsSlider');
+let output = document.querySelector('.number-of-columns-slider');
 columnColor = '#b22222';
 sortingColor = '#bd8600';
 // make sure @ keyframes doneSorting color is the same as sortedColor
 sortedColor = '#008a20';
 columnMaxHeight = 550;
 columnMinHeight = 100;
-numberOfColumns = 175;
 fastSpeed = 1;
 mediumSpeed = 10;
 slowSpeed = 40;
@@ -43,6 +44,7 @@ function makeGrid(numCols) {
 }
 
 createColumnsButton.addEventListener('click', () => {
+  let numberOfColumns = columnsSlider.value;
   if (firstTime) {
     makeColumn(numberOfColumns);
     makeGrid(numberOfColumns);
@@ -60,6 +62,26 @@ createColumnsButton.addEventListener('click', () => {
   }
 })
 
+// Columns slider
+columnsSlider.addEventListener('input', () => {
+  let numberOfColumns = columnsSlider.value;
+  if (firstTime) {
+    makeColumn(numberOfColumns);
+    makeGrid(numberOfColumns);
+    firstTime = false;
+  }
+  else {
+    for (let i = 0; i < numberOfColumns; i++) {
+      // Helpful link: https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+      while (createColumns.firstChild) {
+        createColumns.removeChild(createColumns.lastChild);
+      }
+    }   
+    makeColumn(numberOfColumns);
+    makeGrid(numberOfColumns);
+  }
+})
+////////////////////////////////////
 const delay = (time) => new Promise((resolve) => {
   setTimeout(resolve, time)
 })
