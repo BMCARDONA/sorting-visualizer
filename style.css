@@ -22,14 +22,15 @@ body {
   /* background: rgb(56, 72, 92); */
    background: rgb(56, 72, 92);
   /* background-color: #25274d; */
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .buttons {
   display: flex;
   justify-content: center;
-  background-color: rgb(96, 96, 96);
-  padding: 20px;
+  /* background-color: rgb(96, 96, 96); */
+  /* background-color: lightslategray; */
+  padding: 15px;
   gap: 20px;
 }
 
@@ -38,13 +39,17 @@ body {
 .selectionSortButton,
 .insertionSortButton,
 .heapSortButton,
-.bubbleSortButton {
+.bubbleSortButton,
+.number-of-columns-slider,
+.slowButton,
+.mediumButton,
+.fastButton {
   cursor: pointer;
   font-size: 20px;
   background:#979797;
   border: 0px;
   border-radius: 5px;
-  font-weight: 700;
+  font-weight: 600;
   color: rgb(21, 21, 21);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -52,6 +57,11 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+.number-of-columns-slider {
+  padding-left: 13px;
+  padding-right: 13px;
 }
 
 .createColumnsButton {
@@ -64,7 +74,10 @@ body {
 .selectionSortButton:hover,
 .insertionSortButton:hover,
 .heapSortButton:hover,
-.bubbleSortButton:hover {
+.bubbleSortButton:hover,
+.slowButton:hover,
+.mediumButton:hover,
+.fastButton:hover {
   filter: brightness(35%) !important;
   -webkit-transition: all .3s ease;
 }

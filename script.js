@@ -16,9 +16,9 @@ columnColor = '#b22222';
 sortingColor = '#bd8600';
 // make sure @ keyframes doneSorting color is the same as sortedColor
 sortedColor = '#008a20';
-speedSelectionColor = 'orange'
+speedSelectionColor = 'lightsalmon'
 defaultSpeedButtonColor = '#979797'
-sortSelectionColor = 'purple'
+sortSelectionColor = 'lightseagreen'
 defaultSortButtonColor = '#979797';
 columnMaxHeight = 550;
 columnMinHeight = 100;
@@ -61,8 +61,8 @@ fastButton.addEventListener('click', () => {
   turnSpeedColorsOff(sortingSpeed);
 })
 
-let clickEvent = new Event('click');
-fastButton.dispatchEvent(clickEvent);
+let clickEventOne = new Event('click');
+fastButton.dispatchEvent(clickEventOne);
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -105,6 +105,9 @@ createColumnsButton.addEventListener('click', () => {
     makeGrid(numberOfColumns);
   }
 })
+
+let clickEventTwo = new Event('click');
+createColumnsButton.dispatchEvent(clickEventTwo);
 
 // Columns slider
 columnsSlider.addEventListener('input', () => {
