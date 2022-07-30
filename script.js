@@ -27,6 +27,7 @@ mediumSpeed = 10;
 slowSpeed = 100;
 sortingSpeed = fastSpeed;
 
+
 function turnSpeedColorsOff(speed) {
     if (speed == slowSpeed) {
       slowButton.style.background = speedSelectionColor;
@@ -60,7 +61,8 @@ fastButton.addEventListener('click', () => {
   turnSpeedColorsOff(sortingSpeed);
 })
 
-
+let clickEvent = new Event('click');
+fastButton.dispatchEvent(clickEvent);
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
