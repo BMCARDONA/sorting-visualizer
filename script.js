@@ -16,31 +16,32 @@ columnColor = '#b22222';
 sortingColor = '#bd8600';
 // make sure @ keyframes doneSorting color is the same as sortedColor
 sortedColor = '#008a20';
+speedSelectionColor = 'orange'
+defaultSpeedButtonColor = '#979797'
+sortSelectionColor = 'purple'
+defaultSortButtonColor = '#979797';
 columnMaxHeight = 550;
 columnMinHeight = 100;
 fastSpeed = 1;
 mediumSpeed = 10;
 slowSpeed = 100;
 sortingSpeed = fastSpeed;
-speedSelectionColor = 'orange'
-
-mimicButtonBackgroundColor = '#979797'
 
 function turnSpeedColorsOff(speed) {
     if (speed == slowSpeed) {
       slowButton.style.background = speedSelectionColor;
-      mediumButton.style.background = mimicButtonBackgroundColor;
-      fastButton.style.background = mimicButtonBackgroundColor;
+      mediumButton.style.background = defaultSpeedButtonColor;
+      fastButton.style.background = defaultSpeedButtonColor;
     }
     else if (speed == mediumSpeed) {
       mediumButton.style.background = speedSelectionColor;
-      slowButton.style.background = mimicButtonBackgroundColor;
-      fastButton.style.background = mimicButtonBackgroundColor;
+      slowButton.style.background = defaultSpeedButtonColor;
+      fastButton.style.background = defaultSpeedButtonColor;
     }
     else {
       fastButton.style.background = speedSelectionColor;
-      slowButton.style.background = mimicButtonBackgroundColor;
-      mediumButton.style.background = mimicButtonBackgroundColor;
+      slowButton.style.background = defaultSpeedButtonColor;
+      mediumButton.style.background = defaultSpeedButtonColor;
     }
 }
 
@@ -143,6 +144,47 @@ function sortingColorFunction(array) {
   }
 }
 
+function turnSortColorsOff(sortType) {
+  if (sortType == bubbleSort) {
+    bubbleSortButton.style.background = sortSelectionColor;
+  }
+  else {
+    bubbleSortButton.style.background = defaultSortButtonColor;
+  }
+  if (sortType == heapSort) {
+    heapSortButton.style.background = sortSelectionColor;
+  }
+  else {
+    heapSortButton.style.background = defaultSortButtonColor;
+  }
+  if (sortType == insertionSort) {
+    insertionSortButton.style.background = sortSelectionColor;
+  }
+  else {
+    insertionSortButton.style.background = defaultSortButtonColor;
+  }
+  if (sortType == quickSort) {
+    quickSortButton.style.background = sortSelectionColor;
+  }
+  else {
+    quickSortButton.style.background = defaultSortButtonColor;
+  }
+  if (sortType == selectionSort) {
+    selectionSortButton.style.background = sortSelectionColor;
+  }
+  else {
+    selectionSortButton.style.background = defaultSortButtonColor;
+  }
+    // insertionSortButton.style.background = defaultSortButtonColor;
+    // selectionSortButton.style.background = defaultSortButtonColor;
+    // quickSortButton.style.background = defaultSortButtonColor;
+    // heapSortButton.style.background = defaultSortButtonColor;
+}
+
+
+
+
+
 // BUBBLE SORT
 
 // Helpful link: https://stackoverflow.com/questions/65794498/how-to-repeat-promise-chain
@@ -169,6 +211,7 @@ async function bubbleSort(array) {
 }
 
 bubbleSortButton.addEventListener('click', () => {
+  turnSortColorsOff(bubbleSort);
   var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
   async function repeatChain(times, chain) {
     for (let i = 0; i < times; i++) {
@@ -198,6 +241,7 @@ async function insertionSort(array) {
 }
 
 insertionSortButton.addEventListener('click', () => {
+    turnSortColorsOff(insertionSort);
     var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
     async function repeatChain(times, chain) {
       for (let i = 0; i < times; i++) {
@@ -231,6 +275,7 @@ async function selectionSort(array) {
 
 
 selectionSortButton.addEventListener('click', () => {
+turnSortColorsOff(selectionSort);
 var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
 async function repeatChain(times, chain) {
   for (let i = 0; i < times; i++) {
@@ -286,6 +331,7 @@ async function quickSort(array) {
 
 
 quickSortButton.addEventListener('click', () => {
+  turnSortColorsOff(quickSort);
   var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
   async function repeatChain(times, chain) {
     for (let i = 0; i < times; i++) {
@@ -348,7 +394,7 @@ function swap(i, j, array) {
 async function heapSort(array) {
   buildMaxHeap(array);
   for (let endIdx = array.length - 1; endIdx > 0; endIdx--) {
-    await delay(slowSpeed);
+    await delay(sortingSpeed);
     swap(0, endIdx, array);
     siftDown(0, endIdx - 1, array);
   }
@@ -357,6 +403,7 @@ async function heapSort(array) {
 }
 
 heapSortButton.addEventListener('click', () => {
+  turnSortColorsOff(heapSort);
   var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
   async function repeatChain(times, chain) {
     for (let i = 0; i < times; i++) {
