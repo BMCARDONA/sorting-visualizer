@@ -16,9 +16,9 @@ columnColor = '#b22222';
 sortingColor = '#bd8600';
 // make sure @ keyframes doneSorting color is the same as sortedColor
 sortedColor = '#008a20';
-speedSelectionColor = 'lightsalmon'
+speedSelectionColor = 'olivedrab'
 defaultSpeedButtonColor = '#979797'
-sortSelectionColor = 'lightseagreen'
+sortSelectionColor = 'goldenrod'
 defaultSortButtonColor = '#979797';
 columnMaxHeight = 550;
 columnMinHeight = 100;
@@ -62,7 +62,7 @@ fastButton.addEventListener('click', () => {
 })
 
 let clickEventOne = new Event('click');
-fastButton.dispatchEvent(clickEventOne);
+mediumButton.dispatchEvent(clickEventOne);
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
