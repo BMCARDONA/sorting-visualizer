@@ -12,6 +12,7 @@ let output = document.querySelector('.number-of-columns-slider');
 slowButton = document.querySelector(".slowButton");
 mediumButton = document.querySelector(".mediumButton");
 fastButton = document.querySelector(".fastButton");
+sortButton = document.querySelector(".sortButton");
 columnColor = '#b22222';
 sortingColor = '#bd8600';
 // make sure @ keyframes doneSorting color is the same as sortedColor
@@ -217,15 +218,17 @@ async function bubbleSort(array) {
 
 bubbleSortButton.addEventListener('click', () => {
   turnSortColorsOff(bubbleSort);
-  var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-  async function repeatChain(times, chain) {
-    for (let i = 0; i < times; i++) {
-      sortingColorFunction(nodes);
-      await chain(nodes);
-      console.log(nodes);
-    }
-  }
-  repeatChain(1, bubbleSort)
+  sortButton.addEventListener('click', () => {
+      var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+      async function repeatChain(times, chain) {
+        for (let i = 0; i < times; i++) {
+          sortingColorFunction(nodes);
+          await chain(nodes);
+          console.log(nodes);
+        }
+      }
+      repeatChain(1, bubbleSort);
+    });
 })
 
 // Insertion sort
