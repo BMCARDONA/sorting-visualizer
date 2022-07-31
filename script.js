@@ -3,7 +3,7 @@ const createColumns = document.querySelector('.createColumns');
 let column = document.querySelectorAll(".column");
 bubbleSortButton = document.querySelector(".bubbleSortButton");
 insertionSortButton = document.querySelector(".insertionSortButton");
-selectionSortButton = document.querySelector(".selectionSortButton");
+let selectionSortButton = document.querySelector(".selectionSortButton");
 quickSortButton = document.querySelector(".quickSortButton");
 heapSortButton = document.querySelector(".heapSortButton");
 mergeSortButton = document.querySelector(".mergeSortButton");
@@ -14,13 +14,13 @@ mediumButton = document.querySelector(".mediumButton");
 fastButton = document.querySelector(".fastButton");
 sortButton = document.querySelector(".sortButton");
 columnColor = '#b22222';
-// sortingColor = 'goldenrod';
-sortingColor = '#c167ff';
+sortingColor = 'darkgoldenrod';
+// sortingColor = '#c167ff';
 // make sure @ keyframes doneSorting color is the same as sortedColor
-sortedColor = '#008a20';
-speedSelectionColor = 'olivedrab';
+sortedColor = 'darkolivegreen';
+speedSelectionColor = 'darkolivegreen';
 defaultSpeedButtonColor = '#979797';
-sortSelectionColor = 'goldenrod';
+sortSelectionColor = 'chocolate';
 defaultSortButtonColor = '#979797';
 columnMaxHeight = 550;
 columnMinHeight = 100;
@@ -64,7 +64,7 @@ fastButton.addEventListener('click', () => {
 })
 
 let clickEventOne = new Event('click');
-mediumButton.dispatchEvent(clickEventOne);
+fastButton.dispatchEvent(clickEventOne);
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -214,8 +214,84 @@ sortButton.addEventListener('click', () => {
 });
 
 
-function sort(selectedSortButton) {
+function markButtonAsUnavailable(selectedSortButton) {
+  disabledColor = 'firebrick';
+    if (selectedSortButton == "bubbleSort") {
+      heapSortButton.style.color = disabledColor;
+      insertionSortButton.style.color = disabledColor;
+      quickSortButton.style.color = disabledColor;
+      selectionSortButton.style.color = disabledColor;
+    }
+    if (selectedSortButton == "heapSort") {
+      bubbleSortButton.style.color = disabledColor;
+      insertionSortButton.style.color = disabledColor;
+      quickSortButton.style.color = disabledColor;
+      selectionSortButton.style.color = disabledColor;
+    }
+    if (selectedSortButton == "selectionSort") {
+      heapSortButton.style.color = disabledColor;
+      insertionSortButton.style.color = disabledColor;
+      quickSortButton.style.color = disabledColor;
+      bubbleSortButton.style.color = disabledColor;
+    }
+    if (selectedSortButton == "quickSort") {
+      heapSortButton.style.color = disabledColor;
+      insertionSortButton.style.color = disabledColor;
+      bubbleSortButton.style.color = disabledColor;
+      selectionSortButton.style.color = disabledColor;
+    }
+    if (selectedSortButton == "insertionSort") {
+      heapSortButton.style.color = disabledColor;
+      bubbleSortButton.style.color = disabledColor;
+      quickSortButton.style.color = disabledColor;
+      selectionSortButton.style.color = disabledColor; 
+    }
+    output.style.color = disabledColor;
+    createColumnsButton.style.color = disabledColor;
+}
 
+
+function markButtonAsAvailable(selectedSortButton) {
+  enabledColor = 'black';
+    if (selectedSortButton == "bubbleSort") {
+      heapSortButton.style.color = enabledColor;
+      insertionSortButton.style.color = enabledColor;
+      quickSortButton.style.color = enabledColor;
+      selectionSortButton.style.color = enabledColor;
+    }
+    if (selectedSortButton == "heapSort") {
+      bubbleSortButton.style.color = enabledColor;
+      insertionSortButton.style.color = enabledColor;
+      quickSortButton.style.color = enabledColor;
+      selectionSortButton.style.color = enabledColor;
+    }
+    if (selectedSortButton == "selectionSort") {
+      heapSortButton.style.color = enabledColor;
+      insertionSortButton.style.color = enabledColor;
+      quickSortButton.style.color = enabledColor;
+      bubbleSortButton.style.color = enabledColor;
+    }
+    if (selectedSortButton == "quickSort") {
+      heapSortButton.style.color = enabledColor;
+      insertionSortButton.style.color = enabledColor;
+      bubbleSortButton.style.color = enabledColor;
+      selectionSortButton.style.color = enabledColor;
+    }
+    if (selectedSortButton == "insertionSort") {
+      heapSortButton.style.color = enabledColor;
+      bubbleSortButton.style.color = enabledColor;
+      quickSortButton.style.color = enabledColor;
+      selectionSortButton.style = enabledColor; 
+    }
+    output.style.color = enabledColor;
+    createColumnsButton.style.color = enabledColor;
+}
+
+
+
+
+function sort(selectedSortButton) {
+    markButtonAsUnavailable(selectedSortButton);
     var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
 
     if (selectedSortButton == "bubbleSort") {
@@ -225,6 +301,7 @@ function sort(selectedSortButton) {
           sortingColorFunction(nodes);
           await chain(nodes);
           enableButtons();
+          markButtonAsAvailable(selectedSortButton);
         }
       }
       repeatChain(1, bubbleSort);
@@ -237,6 +314,7 @@ function sort(selectedSortButton) {
           sortingColorFunction(nodes);
           await chain(nodes);
           enableButtons();
+          markButtonAsAvailable(selectedSortButton);
         }
       }
       repeatChain(1, insertionSort);
@@ -249,6 +327,7 @@ function sort(selectedSortButton) {
           sortingColorFunction(nodes);
           await chain(nodes);
           enableButtons();
+          markButtonAsAvailable(selectedSortButton);
         }
       }
       repeatChain(1, selectionSort);
@@ -260,20 +339,19 @@ function sort(selectedSortButton) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
           await chain(nodes);
-          enableButtons();
         }
         if (sortingSpeed == fastSpeed) {
           await delay (nodes.length * 20);
-          sortedColorAnimation(nodes);
         }
         if (sortingSpeed == mediumSpeed) {
           await delay (nodes.length * 55);
-          sortedColorAnimation(nodes);
         }
         if (sortingSpeed == slowSpeed) {
           await delay (nodes.length * 400)
-          sortedColorAnimation(nodes);
         }
+        enableButtons();
+        markButtonAsAvailable(selectedSortButton);
+        sortedColorAnimation(nodes);
       }
       repeatChain(1, quickSort)
     }
@@ -284,7 +362,8 @@ function sort(selectedSortButton) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
           await chain(nodes);
-          enableButtons();
+          enableButtons();  
+          markButtonAsAvailable(selectedSortButton);
         }
       }
       repeatChain(1, heapSort)
@@ -318,6 +397,9 @@ bubbleSortButton.addEventListener('click', () => {
     turnSortColorsOff(bubbleSort);
     selectedSortButton = "bubbleSort";
 })
+
+let clickEventThree = new Event('click');
+bubbleSortButton.dispatchEvent(clickEventThree);
 
 
 
