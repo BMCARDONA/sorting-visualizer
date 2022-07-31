@@ -14,12 +14,13 @@ mediumButton = document.querySelector(".mediumButton");
 fastButton = document.querySelector(".fastButton");
 sortButton = document.querySelector(".sortButton");
 columnColor = '#b22222';
-sortingColor = '#bd8600';
+// sortingColor = 'goldenrod';
+sortingColor = '#c167ff';
 // make sure @ keyframes doneSorting color is the same as sortedColor
 sortedColor = '#008a20';
-speedSelectionColor = 'olivedrab'
-defaultSpeedButtonColor = '#979797'
-sortSelectionColor = 'goldenrod'
+speedSelectionColor = 'olivedrab';
+defaultSpeedButtonColor = '#979797';
+sortSelectionColor = 'goldenrod';
 defaultSortButtonColor = '#979797';
 columnMaxHeight = 550;
 columnMinHeight = 100;
@@ -183,46 +184,6 @@ function turnSortColorsOff(sortType) {
   }
 }
 
-
-
-function disableSelectedSortButton (sortType) {
-  if (sortType == bubbleSort) {
-    document.querySelector(".bubbleSortButton").disabled = true;
-    document.querySelector(".heapSortButton").disabled = false;
-    document.querySelector(".insertionSortButton").disabled = false;
-    document.querySelector(".quickSortButton").disabled = false;
-    document.querySelector(".selectionSortButton").disabled = false;
-  }
-  else if (sortType == heapSort) {
-    document.querySelector(".bubbleSortButton").disabled = false;
-    document.querySelector(".heapSortButton").disabled = true;
-    document.querySelector(".insertionSortButton").disabled = false;
-    document.querySelector(".quickSortButton").disabled = false;
-    document.querySelector(".selectionSortButton").disabled = false;
-  }
-  else if (sortType == insertionSort) {
-    document.querySelector(".bubbleSortButton").disabled = false;
-    document.querySelector(".heapSortButton").disabled = false;
-    document.querySelector(".insertionSortButton").disabled = true;
-    document.querySelector(".quickSortButton").disabled = false;
-    document.querySelector(".selectionSortButton").disabled = false;
-  }
-  else if (sortType == quickSort) {
-    document.querySelector(".bubbleSortButton").disabled = false;
-    document.querySelector(".heapSortButton").disabled = false;
-    document.querySelector(".insertionSortButton").disabled = false;
-    document.querySelector(".quickSortButton").disabled = true;
-    document.querySelector(".selectionSortButton").disabled = false;
-  }
-  else if (sortType == selectionSort) {
-    document.querySelector(".bubbleSortButton").disabled = false;
-    document.querySelector(".heapSortButton").disabled = false;
-    document.querySelector(".insertionSortButton").disabled = false;
-    document.querySelector(".quickSortButton").disabled = false;
-    document.querySelector(".selectionSortButton").disabled = true;
-  }
-}
-
 function disableButtons() {
     document.querySelector(".bubbleSortButton").disabled = true;
     document.querySelector(".heapSortButton").disabled = true;
@@ -257,8 +218,8 @@ function sort(selectedSortButton) {
 
     var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
 
-    disableButtons();
     if (selectedSortButton == "bubbleSort") {
+      disableButtons();
       async function repeatChain(times, chain) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
@@ -270,6 +231,7 @@ function sort(selectedSortButton) {
     }
 
     else if (selectedSortButton == "insertionSort") {
+      disableButtons();
       async function repeatChain(times, chain) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
@@ -281,6 +243,7 @@ function sort(selectedSortButton) {
     }
 
     else if (selectedSortButton == "selectionSort") {
+      disableButtons();
       async function repeatChain(times, chain) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
@@ -292,6 +255,7 @@ function sort(selectedSortButton) {
     }
 
     else if (selectedSortButton == "quickSort") {
+      disableButtons();
       async function repeatChain(times, chain) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
@@ -315,6 +279,7 @@ function sort(selectedSortButton) {
     }
 
     else if (selectedSortButton == "heapSort") {
+      disableButtons();
       async function repeatChain(times, chain) {
         for (let i = 0; i < times; i++) {
           sortingColorFunction(nodes);
@@ -351,7 +316,6 @@ async function bubbleSort(array) {
 }
 bubbleSortButton.addEventListener('click', () => {
     turnSortColorsOff(bubbleSort);
-    disableSelectedSortButton(bubbleSort);
     selectedSortButton = "bubbleSort";
 })
 
@@ -374,7 +338,6 @@ async function insertionSort(array) {
 }
 insertionSortButton.addEventListener('click', () => {
   turnSortColorsOff(insertionSort);
-  disableSelectedSortButton(insertionSort);
   selectedSortButton = "insertionSort";
 })
 
@@ -401,7 +364,6 @@ async function selectionSort(array) {
 }
 selectionSortButton.addEventListener('click', () => {
   turnSortColorsOff(selectionSort);
-  disableSelectedSortButton(selectionSort);
   selectedSortButton = "selectionSort";
 })
 
@@ -447,7 +409,6 @@ async function quickSort(array) {
 }
 quickSortButton.addEventListener('click', () => {
   turnSortColorsOff(quickSort);
-  disableSelectedSortButton(quickSort);
   selectedSortButton = "quickSort";
 })
 
@@ -496,6 +457,5 @@ async function heapSort(array) {
 }
 heapSortButton.addEventListener('click', () => {
   turnSortColorsOff(heapSort);
-  disableSelectedSortButton(heapSort);
   selectedSortButton = "heapSort";
 });
