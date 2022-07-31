@@ -42,7 +42,8 @@ body {
 .number-of-columns-slider,
 .slowButton,
 .mediumButton,
-.fastButton {
+.fastButton,
+.sortButton {
   cursor: pointer;
   font-size: 20px;
   background:#979797;
@@ -76,7 +77,8 @@ body {
 .bubbleSortButton:hover,
 .slowButton:hover,
 .mediumButton:hover,
-.fastButton:hover {
+.fastButton:hover,
+.sortButton:hover {
   filter: brightness(35%) !important;
   -webkit-transition: all .3s ease;
 }

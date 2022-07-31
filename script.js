@@ -181,20 +181,154 @@ function turnSortColorsOff(sortType) {
   else {
     selectionSortButton.style.background = defaultSortButtonColor;
   }
-    // insertionSortButton.style.background = defaultSortButtonColor;
-    // selectionSortButton.style.background = defaultSortButtonColor;
-    // quickSortButton.style.background = defaultSortButtonColor;
-    // heapSortButton.style.background = defaultSortButtonColor;
 }
 
 
 
+function disableSelectedSortButton (sortType) {
+  if (sortType == bubbleSort) {
+    document.querySelector(".bubbleSortButton").disabled = true;
+    document.querySelector(".heapSortButton").disabled = false;
+    document.querySelector(".insertionSortButton").disabled = false;
+    document.querySelector(".quickSortButton").disabled = false;
+    document.querySelector(".selectionSortButton").disabled = false;
+  }
+  else if (sortType == heapSort) {
+    document.querySelector(".bubbleSortButton").disabled = false;
+    document.querySelector(".heapSortButton").disabled = true;
+    document.querySelector(".insertionSortButton").disabled = false;
+    document.querySelector(".quickSortButton").disabled = false;
+    document.querySelector(".selectionSortButton").disabled = false;
+  }
+  else if (sortType == insertionSort) {
+    document.querySelector(".bubbleSortButton").disabled = false;
+    document.querySelector(".heapSortButton").disabled = false;
+    document.querySelector(".insertionSortButton").disabled = true;
+    document.querySelector(".quickSortButton").disabled = false;
+    document.querySelector(".selectionSortButton").disabled = false;
+  }
+  else if (sortType == quickSort) {
+    document.querySelector(".bubbleSortButton").disabled = false;
+    document.querySelector(".heapSortButton").disabled = false;
+    document.querySelector(".insertionSortButton").disabled = false;
+    document.querySelector(".quickSortButton").disabled = true;
+    document.querySelector(".selectionSortButton").disabled = false;
+  }
+  else if (sortType == selectionSort) {
+    document.querySelector(".bubbleSortButton").disabled = false;
+    document.querySelector(".heapSortButton").disabled = false;
+    document.querySelector(".insertionSortButton").disabled = false;
+    document.querySelector(".quickSortButton").disabled = false;
+    document.querySelector(".selectionSortButton").disabled = true;
+  }
+}
+
+function disableButtons() {
+    document.querySelector(".bubbleSortButton").disabled = true;
+    document.querySelector(".heapSortButton").disabled = true;
+    document.querySelector(".insertionSortButton").disabled = true;
+    document.querySelector(".quickSortButton").disabled = true;
+    document.querySelector(".selectionSortButton").disabled = true;
+    document.querySelector("#columnsSlider").disabled = true;
+    document.querySelector(".sortButton").disabled = true;
+    document.querySelector(".createColumnsButton").disabled = true;
+}
+
+function enableButtons() {
+    document.querySelector(".bubbleSortButton").disabled = false;
+    document.querySelector(".heapSortButton").disabled = false;
+    document.querySelector(".insertionSortButton").disabled = false;
+    document.querySelector(".quickSortButton").disabled = false;
+    document.querySelector(".selectionSortButton").disabled = false;
+    document.querySelector("#columnsSlider").disabled = false;
+    document.querySelector(".sortButton").disabled = false;
+    document.querySelector(".createColumnsButton").disabled = false;
+}
 
 
-// BUBBLE SORT
+let selectedSortButton = ""
+
+sortButton.addEventListener('click', () => {
+  sort(selectedSortButton);
+});
+
+
+function sort(selectedSortButton) {
+
+    var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
+
+    disableButtons();
+    if (selectedSortButton == "bubbleSort") {
+      async function repeatChain(times, chain) {
+        for (let i = 0; i < times; i++) {
+          sortingColorFunction(nodes);
+          await chain(nodes);
+          enableButtons();
+        }
+      }
+      repeatChain(1, bubbleSort);
+    }
+
+    else if (selectedSortButton == "insertionSort") {
+      async function repeatChain(times, chain) {
+        for (let i = 0; i < times; i++) {
+          sortingColorFunction(nodes);
+          await chain(nodes);
+          enableButtons();
+        }
+      }
+      repeatChain(1, insertionSort);
+    }
+
+    else if (selectedSortButton == "selectionSort") {
+      async function repeatChain(times, chain) {
+        for (let i = 0; i < times; i++) {
+          sortingColorFunction(nodes);
+          await chain(nodes);
+          enableButtons();
+        }
+      }
+      repeatChain(1, selectionSort);
+    }
+
+    else if (selectedSortButton == "quickSort") {
+      async function repeatChain(times, chain) {
+        for (let i = 0; i < times; i++) {
+          sortingColorFunction(nodes);
+          await chain(nodes);
+          enableButtons();
+        }
+        if (sortingSpeed == fastSpeed) {
+          await delay (nodes.length * 20);
+          sortedColorAnimation(nodes);
+        }
+        if (sortingSpeed == mediumSpeed) {
+          await delay (nodes.length * 55);
+          sortedColorAnimation(nodes);
+        }
+        if (sortingSpeed == slowSpeed) {
+          await delay (nodes.length * 400)
+          sortedColorAnimation(nodes);
+        }
+      }
+      repeatChain(1, quickSort)
+    }
+
+    else if (selectedSortButton == "heapSort") {
+      async function repeatChain(times, chain) {
+        for (let i = 0; i < times; i++) {
+          sortingColorFunction(nodes);
+          await chain(nodes);
+          enableButtons();
+        }
+      }
+      repeatChain(1, heapSort)
+    }
+}
 
 // Helpful link: https://stackoverflow.com/questions/65794498/how-to-repeat-promise-chain
 
+// BUBBLE SORT
 async function bubbleSort(array) {
     let isSorted = false;
     let counter = 0;
@@ -215,24 +349,15 @@ async function bubbleSort(array) {
     sortedColorAnimation(array);
     return array;
 }
-
 bubbleSortButton.addEventListener('click', () => {
-  turnSortColorsOff(bubbleSort);
-  sortButton.addEventListener('click', () => {
-      var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-      async function repeatChain(times, chain) {
-        for (let i = 0; i < times; i++) {
-          sortingColorFunction(nodes);
-          await chain(nodes);
-          console.log(nodes);
-        }
-      }
-      repeatChain(1, bubbleSort);
-    });
+    turnSortColorsOff(bubbleSort);
+    disableSelectedSortButton(bubbleSort);
+    selectedSortButton = "bubbleSort";
 })
 
-// Insertion sort
 
+
+// Insertion sort
 async function insertionSort(array) {
   for (let i = 1; i < array.length; i++) {
     while (i > 0 && array[i].style.height < array[i - 1].style.height) {
@@ -247,19 +372,13 @@ async function insertionSort(array) {
   sortedColorAnimation(array);
   return array;
 }
-
 insertionSortButton.addEventListener('click', () => {
-    turnSortColorsOff(insertionSort);
-    var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-    async function repeatChain(times, chain) {
-      for (let i = 0; i < times; i++) {
-        sortingColorFunction(nodes);
-        await chain(nodes);
-        console.log(nodes);
-      }
-    }
-    repeatChain(1, insertionSort)
+  turnSortColorsOff(insertionSort);
+  disableSelectedSortButton(insertionSort);
+  selectedSortButton = "insertionSort";
 })
+
+
 
 // Selection sort
 async function selectionSort(array) {
@@ -280,19 +399,12 @@ async function selectionSort(array) {
   sortedColorAnimation(array);
   return array; 
 }
-
-
 selectionSortButton.addEventListener('click', () => {
-turnSortColorsOff(selectionSort);
-var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-async function repeatChain(times, chain) {
-  for (let i = 0; i < times; i++) {
-    sortingColorFunction(nodes);
-    await chain(nodes);
-  }
-}
-repeatChain(1, selectionSort)
+  turnSortColorsOff(selectionSort);
+  disableSelectedSortButton(selectionSort);
+  selectedSortButton = "selectionSort";
 })
+
 
 
 // Quick sort
@@ -324,55 +436,30 @@ async function quickSortHelper(array, startIdx, endIdx) {
     quickSortHelper(array, startIdx, rightIdx - 1);
   }
 }
-
 function swap(i, j, array) {
   let temp = array[j].style.height;
   array[j].style.height = array[i].style.height;
   array[i].style.height = temp;
 }
-
-
 async function quickSort(array) {
   quickSortHelper(array, 0, array.length - 1);
   return array;
 }
-
-
 quickSortButton.addEventListener('click', () => {
   turnSortColorsOff(quickSort);
-  var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-  async function repeatChain(times, chain) {
-    for (let i = 0; i < times; i++) {
-      sortingColorFunction(nodes);
-      await chain(nodes);
-    }
-    if (sortingSpeed == fastSpeed) {
-      await delay (nodes.length * 20);
-      sortedColorAnimation(nodes);
-    }
-    if (sortingSpeed == mediumSpeed) {
-      await delay (nodes.length * 55);
-      sortedColorAnimation(nodes);
-    }
-    if (sortingSpeed == slowSpeed) {
-      await delay (nodes.length * 400)
-      sortedColorAnimation(nodes);
-    }
-  }
-  repeatChain(1, quickSort)
+  disableSelectedSortButton(quickSort);
+  selectedSortButton = "quickSort";
 })
 
 
 
-  // Heap sort
-
+// Heap sort
 function buildMaxHeap(array) {
   const firstParentIdx = Math.floor((array.length - 2) / 2);
   for (let currentIdx = firstParentIdx; currentIdx >= 0; currentIdx--) {
     siftDown(currentIdx, array.length - 1, array);
   }
 }
-
 function siftDown(currentIdx, endIdx, heap) {
   let childOneIdx = currentIdx * 2 + 1;
   while (childOneIdx <= endIdx) {
@@ -392,13 +479,11 @@ function siftDown(currentIdx, endIdx, heap) {
     }
   }
 }
-
 function swap(i, j, array) {
   const temp = array[j].style.height;
   array[j].style.height = array[i].style.height;
   array[i].style.height = temp;
 }
-
 async function heapSort(array) {
   buildMaxHeap(array);
   for (let endIdx = array.length - 1; endIdx > 0; endIdx--) {
@@ -409,15 +494,8 @@ async function heapSort(array) {
   sortedColorAnimation(array);
   return array;
 }
-
 heapSortButton.addEventListener('click', () => {
   turnSortColorsOff(heapSort);
-  var nodes = Array.prototype.slice.call(document.querySelector(".createColumns").children);
-  async function repeatChain(times, chain) {
-    for (let i = 0; i < times; i++) {
-      sortingColorFunction(nodes);
-      await chain(nodes);
-    }
-  }
-  repeatChain(1, heapSort)
-  })
+  disableSelectedSortButton(heapSort);
+  selectedSortButton = "heapSort";
+});
