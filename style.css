@@ -9,7 +9,7 @@ body {
   border-width: 0px;
   /* background: rgb(230, 230, 230); */
   background: rgb(31, 31, 31);
-  /* background: rgb(56, 72, 92); */
+  /* background:rgb(229, 229, 249) */
 }
 
 
@@ -17,12 +17,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 40px;
+  color:rgb(169, 168, 168);
   padding: 10px;
-  /* background: rgb(56, 72, 92); */
-   background: rgb(56, 72, 92);
-  /* background-color: #25274d; */
-  font-weight: 700;
+   /* background: rgb(58, 61, 87); */
+  background-color: #25274d;
+  font-weight: 500;
 }
 
 .buttons {
@@ -59,13 +59,18 @@ body {
   user-select: none;
 }
 
+
+.sortButton {
+    background: darkgoldenrod;
+}
+
 .number-of-columns-slider {
   padding-left: 13px;
   padding-right: 13px;
 }
 
 .createColumnsButton {
-  background-color: rgb(56, 72, 92);
+  background: rgb(109, 102, 147);
 }
 
 
